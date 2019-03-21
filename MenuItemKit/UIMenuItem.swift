@@ -18,6 +18,16 @@ public extension UIMenuItem {
     actionBox.value = action
   }
 
+ @objc(mik_initWithTitle:image:selector:)
+ convenience init(title: String, image: UIImage?, selector: Selector) {
+     let title = image != nil ? title + imageItemIdetifier : title
+     self.init(title: title, action: selector)
+     imageBox.value = image
+     actionBox.value = { item in
+        // never gets called, will call perform(selector) on UIResponder directly
+    }
+ }
+
   @objc(mik_initWithTitle:action:)
   convenience init(title: String, action: @escaping MenuItemAction) {
     self.init(title: title, image: nil, action: action)
